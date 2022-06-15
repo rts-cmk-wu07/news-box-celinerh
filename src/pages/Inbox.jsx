@@ -1,12 +1,29 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { useEffect } from "react";
-
+import { useEffect, useState } from "react";
 import { BsSearch } from "react-icons/bs";
 import useTopStories from "../hooks/useTopStories";
 import ArticleSection from "../templates/ArticleSection";
 
 const Inbox = () => {
+  const { topStories } = useTopStories("home");
+  //let categories = [];
+  const [categories, setCategories] = useState([]);
+
+  console.log("render");
+
+  useEffect(() => {
+    // add categories to array
+    topStories &&
+      topStories.map(
+        (article) =>
+          categories.indexOf(article.section) === -1 &&
+          categories.push(article.section)
+      );
+
+    topStories && setCategories(categories.slice(0, 4));
+  }, [topStories]);
+
   const styles = {
     inbox: css`
       & label {
@@ -34,22 +51,6 @@ const Inbox = () => {
     `,
   };
 
-  const { topStories, error, isPending } = useTopStories("home");
-
-  let categories = [];
-  useEffect(() => {
-    // add categories to array
-
-    topStories &&
-      topStories.map(
-        (article) =>
-          categories.indexOf(article.section) === -1 &&
-          categories.push(article.section)
-      );
-
-    categories = categories.slice(0, 6);
-  });
-
   return (
     <div css={styles.inbox}>
       <label>
@@ -60,6 +61,7 @@ const Inbox = () => {
       <div>
         {categories &&
           categories.map((category, index) => {
+            console.log("COMPONENT!!!!", category);
             return <ArticleSection category={category} key={index} />;
           })}
       </div>
