@@ -16,7 +16,7 @@ const Navigation = () => {
       : pathName === "/"
       ? "Inbox"
       : pathName === "/archive"
-      ? "archive"
+      ? "Archive"
       : "404";
 
   const styles = {
@@ -30,17 +30,18 @@ const Navigation = () => {
         grid-template-columns: repeat(3, 1fr);
 
         & li {
-          &:first-of-type {
+          &:nth-of-type(1) {
             place-self: center start;
             font-size: 1.2rem;
           }
 
           & > h1 {
+            font-size: 1.3rem;
             text-align: center;
             color: #324755;
           }
 
-          &:last-child {
+          &:nth-of-type(3) {
             place-self: center end;
             font-size: 1.3rem;
           }
