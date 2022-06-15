@@ -24,7 +24,7 @@ const useArticles = (category, numberOfArticles) => {
         setIsPending(false);
         setError(error.message);
       });
-  }, []);
+  }, [category, numberOfArticles]);
 
   return { articles, error, isPending };
 };
