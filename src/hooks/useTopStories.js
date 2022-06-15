@@ -24,7 +24,7 @@ const useTopStories = (category) => {
         setIsPending(false);
         setError(error.message);
       });
-  }, []);
+  }, [category]);
 
   return { topStories, error, isPending };
 };
