@@ -16,7 +16,15 @@ const useArticles = (category, numberOfArticles) => {
         return response.json();
       })
       .then((data) => {
-        setArticles(data.results.slice(0, numberOfArticles));
+        if (
+          data.results[0].section === "admin" ||
+          data.results[0].section === ""
+        ) {
+          setArticles(data.results.slice(1, numberOfArticles + 1));
+        } else {
+          setArticles(data.results.slice(0, numberOfArticles));
+        }
+
         setIsPending(false);
         setError(null);
       })
