@@ -7,10 +7,7 @@ import ArticleSection from "../templates/ArticleSection";
 
 const Inbox = () => {
   const { topStories } = useTopStories("home");
-  //let categories = [];
   const [categories, setCategories] = useState([]);
-
-  console.log("render");
 
   useEffect(() => {
     // add categories to array
@@ -21,8 +18,11 @@ const Inbox = () => {
           categories.push(article.section)
       );
 
-    topStories && setCategories(categories.slice(0, 4));
+    topStories && setCategories(categories.slice(0, 2));
   }, [topStories]);
+
+  categories &&
+    console.log(categories.reduce((a, v) => ({ ...a, [v]: true }), {}));
 
   const styles = {
     inbox: css`
@@ -61,7 +61,6 @@ const Inbox = () => {
       <div>
         {categories &&
           categories.map((category, index) => {
-            console.log("COMPONENT!!!!", category);
             return <ArticleSection category={category} key={index} />;
           })}
       </div>
