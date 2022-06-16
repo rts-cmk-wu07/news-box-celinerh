@@ -9,6 +9,12 @@ import { BiCategoryAlt } from "react-icons/bi";
 const ArticleSection = ({ category }) => {
   const { articles, error, isPending } = useArticles(category, 5);
 
+  const handleToggle = (e) => {
+    const header = e.target.closest(".categoryHeader");
+
+    header.classList.toggle("closed");
+  };
+
   const styles = {
     component: css``,
     categoryHeader: css`
@@ -17,8 +23,9 @@ const ArticleSection = ({ category }) => {
       grid-template-columns: auto 1fr auto;
       align-items: center;
 
-      border-top: 1px solid red;
-      border-bottom: 1px solid red;
+      border-top: 1px solid #f0f3f4;
+      border-bottom: 1px solid #f0f3f4;
+      cursor: pointer;
 
       & svg {
         display: block;
@@ -29,31 +36,58 @@ const ArticleSection = ({ category }) => {
         margin-left: 10px;
         text-transform: uppercase;
         font-size: 1.1rem;
+        color: #334856;
+      }
+
+      &.closed {
+        & .arrow {
+          transform: rotate(0deg);
+        }
+
+        & ~ .articles {
+          display: none;
+        }
       }
     `,
     iconContainer: css`
-      background-color: red;
+      background-color: #fff;
+      box-shadow: 0px 5px 10px 0px rgba(66, 89, 101, 0.3);
       padding: 5px;
-      border-radius: 50%50%;
+      border-radius: 50%;
+
+      & svg {
+        color: #d97d54;
+      }
     `,
+    arrow: css`
+      color: #334856;
+      transform: rotate(180deg);
+    `,
+
     articles: css`
       & div:not(:last-child) {
-        border-bottom: 1px solid orange;
+        border-bottom: 1px solid #f0f3f4;
       }
     `,
   };
 
   return (
     <div css={styles.component}>
-      <div css={styles.categoryHeader}>
+      <div
+        className="categoryHeader"
+        css={styles.categoryHeader}
+        onClick={(e) => {
+          handleToggle(e);
+        }}
+      >
         <div css={styles.iconContainer}>
           <BiCategoryAlt />
         </div>
         <h2>{category}</h2>
-        <IoIosArrowDown />
+        <IoIosArrowDown className="arrow" css={styles.arrow} />
       </div>
 
-      <div css={styles.articles}>
+      <div css={styles.articles} className="articles">
         {articles &&
           articles.map((article, index) => {
             return (
