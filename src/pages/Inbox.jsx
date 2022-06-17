@@ -9,8 +9,13 @@ const Inbox = () => {
   const { topStories } = useTopStories("home");
   const [categories, setCategories] = useState([]);
 
+  setTimeout(() => {
+    console.log("topstories: ", topStories);
+  }, 5000);
+
+  console.log("render");
+
   useEffect(() => {
-    // add categories to array
     topStories &&
       topStories.map(
         (article) =>
