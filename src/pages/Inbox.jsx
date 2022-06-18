@@ -1,33 +1,37 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { BsSearch } from "react-icons/bs";
+import { SettingsContext } from "../context/Contexts";
 import useTopStories from "../hooks/useTopStories";
 import ArticleSection from "../templates/ArticleSection";
 
 const Inbox = () => {
   const { topStories } = useTopStories("home");
+  let allCategories = [];
   const [categories, setCategories] = useState([]);
-
-  setTimeout(() => {
-    console.log("topstories: ", topStories);
-  }, 5000);
-
-  console.log("render");
+  const { categorySettings, setCategorySettings } = useContext(SettingsContext);
 
   useEffect(() => {
     topStories &&
       topStories.map(
         (article) =>
-          categories.indexOf(article.section) === -1 &&
-          categories.push(article.section)
+          allCategories.indexOf(article.section) === -1 &&
+          allCategories.push(article.section)
       );
 
-    topStories && setCategories(categories.slice(0, 2));
-  }, [topStories]);
+    topStories && console.log(allCategories);
 
-  categories &&
-    console.log(categories.reduce((a, v) => ({ ...a, [v]: true }), {}));
+    topStories && setCategories(allCategories.slice(0, 2));
+
+    if (categories.length > 0) {
+      console.log(categories);
+
+      setCategorySettings(
+        categories.reduce((a, v) => ({ ...a, [v]: true }), {})
+      );
+    }
+  }, [topStories]);
 
   const styles = {
     inbox: css`
