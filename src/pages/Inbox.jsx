@@ -18,7 +18,7 @@ const Inbox = () => {
 
     const uniqueSections = [
       ...new Set(topStories.map((story) => story.section)),
-    ].slice(2, 4);
+    ].slice(0, 2);
 
     setSections(uniqueSections);
 
@@ -69,8 +69,6 @@ const Inbox = () => {
 
       <div>
         {sections.map((section, index) => {
-          console.log(settings, section);
-
           return (
             settings.sections[section] && (
               <ArticleSection section={section} key={index} />
