@@ -4,32 +4,32 @@ import { useContext, useEffect, useState } from "react";
 import { BsSearch } from "react-icons/bs";
 import { SettingsContext } from "../context/Contexts";
 import useTopStories from "../hooks/useTopStories";
-import ArticleSection from "../templates/ArticleSection";
+import ArticleSection from "../components/ArticleSection";
 
 const Inbox = () => {
   const { topStories } = useTopStories("home");
-  let allCategories = [];
-  const [categories, setCategories] = useState([]);
-  const { categorySettings, setCategorySettings } = useContext(SettingsContext);
+  const [sections, setSections] = useState([]);
+  const { settings, setSettings } = useContext(SettingsContext);
 
   useEffect(() => {
-    topStories &&
-      topStories.map(
-        (article) =>
-          allCategories.indexOf(article.section) === -1 &&
-          allCategories.push(article.section)
-      );
+    if (!topStories) {
+      return;
+    }
 
-    topStories && console.log(allCategories);
+    const uniqueSections = [
+      ...new Set(topStories.map((story) => story.section)),
+    ].slice(0, 2);
 
-    topStories && setCategories(allCategories.slice(0, 2));
+    setSections(uniqueSections);
 
-    if (categories.length > 0) {
-      console.log(categories);
-
-      setCategorySettings(
-        categories.reduce((a, v) => ({ ...a, [v]: true }), {})
-      );
+    if (!settings.sections) {
+      setSettings({
+        ...settings,
+        sections: uniqueSections.reduce((acc, section) => {
+          acc[section] = true;
+          return acc;
+        }, {}),
+      });
     }
   }, [topStories]);
 
@@ -68,10 +68,15 @@ const Inbox = () => {
       </label>
 
       <div>
-        {categories &&
-          categories.map((category, index) => {
-            return <ArticleSection category={category} key={index} />;
-          })}
+        {sections.map((section, index) => {
+          console.log(settings, section);
+
+          return (
+            settings.sections[section] && (
+              <ArticleSection section={section} key={index} />
+            )
+          );
+        })}
       </div>
     </div>
   );

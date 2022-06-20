@@ -1,13 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 
-import Article from "../components/Article";
+import Article from "./Article";
 import useArticles from "../hooks/useArticles";
 import { IoIosArrowDown } from "react-icons/io";
 import { BiCategoryAlt } from "react-icons/bi";
 
-const ArticleSection = ({ category }) => {
-  const { articles, error, isPending } = useArticles(category, 5);
+const ArticleSection = ({ section }) => {
+  const { articles, error, isPending } = useArticles(section, 5);
 
   const handleToggle = (e) => {
     const header = e.target.closest(".categoryHeader");
@@ -83,7 +83,7 @@ const ArticleSection = ({ category }) => {
         <div css={styles.iconContainer}>
           <BiCategoryAlt />
         </div>
-        <h2>{category}</h2>
+        <h2>{section}</h2>
         <IoIosArrowDown className="arrow" css={styles.arrow} />
       </div>
 
