@@ -17,6 +17,20 @@ const useArticles = (category, numberOfArticles) => {
       })
       .then((data) => {
         if (
+          data.results[4].section === "admin" ||
+          data.results[4].section === "" ||
+          data.results[4].title === "" ||
+          data.results[4].abstract === ""
+        ) {
+          setArticles(data.results.slice(5, numberOfArticles + 5));
+        } else if (
+          data.results[3].section === "admin" ||
+          data.results[3].section === "" ||
+          data.results[3].title === "" ||
+          data.results[3].abstract === ""
+        ) {
+          setArticles(data.results.slice(4, numberOfArticles + 4));
+        } else if (
           data.results[2].section === "admin" ||
           data.results[2].section === "" ||
           data.results[2].title === "" ||
