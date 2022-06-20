@@ -5,6 +5,15 @@ import Article from "./Article";
 import useArticles from "../hooks/useArticles";
 import { IoIosArrowDown } from "react-icons/io";
 import { BiCategoryAlt } from "react-icons/bi";
+import {
+  TrailingActions,
+  SwipeAction,
+  SwipeableList,
+  SwipeableListItem,
+} from "react-swipeable-list";
+import "react-swipeable-list/dist/styles.css";
+import { GrInbox } from "react-icons/gr";
+import { IconContext } from "react-icons/lib";
 
 const ArticleSection = ({ section }) => {
   const { articles, error, isPending } = useArticles(section, 5);
@@ -27,7 +36,7 @@ const ArticleSection = ({ section }) => {
       border-bottom: 1px solid #f0f3f4;
       cursor: pointer;
 
-      & svg {
+      & > svg {
         display: block;
         font-size: 1.4rem;
       }
@@ -55,7 +64,7 @@ const ArticleSection = ({ section }) => {
       padding: 5px;
       border-radius: 50%;
 
-      & svg {
+      & > svg {
         color: #d97d54;
       }
     `,
@@ -69,7 +78,31 @@ const ArticleSection = ({ section }) => {
         border-bottom: 1px solid #f0f3f4;
       }
     `,
+    swipe: css`
+      background-color: #87bcbf;
+      -height: 100%;
+      display: flex;
+      align-items: center;
+      padding: 8px;
+      font-size: 1.5rem;
+      font-weight: 500;
+      user-select: none;
+
+      & svg {
+        color: red;
+      }
+    `,
   };
+
+  const trailingActions = (component) => (
+    <TrailingActions>
+      <SwipeAction onClick={() => console.log(component)}>
+        <div css={styles.swipe}>
+          <GrInbox />
+        </div>
+      </SwipeAction>
+    </TrailingActions>
+  );
 
   return (
     <div css={styles.component}>
@@ -88,17 +121,31 @@ const ArticleSection = ({ section }) => {
       </div>
 
       <div css={styles.articles} className="articles">
-        {articles &&
-          articles.map((article, index) => {
-            return (
-              <Article
-                imageSource={article.multimedia[0].url}
-                headline={article.title}
-                abstract={article.abstract}
-                key={index}
-              />
-            );
-          })}
+        <SwipeableList>
+          {articles &&
+            articles.map((article, index) => {
+              return (
+                <SwipeableListItem
+                  trailingActions={trailingActions(
+                    <Article
+                      imageSource={article.multimedia[0].url}
+                      headline={article.title}
+                      abstract={article.abstract}
+                      key={index}
+                    />
+                  )}
+                  key={index}
+                >
+                  <Article
+                    imageSource={article.multimedia[0].url}
+                    headline={article.title}
+                    abstract={article.abstract}
+                    key={index}
+                  />
+                </SwipeableListItem>
+              );
+            })}
+        </SwipeableList>
       </div>
     </div>
   );
