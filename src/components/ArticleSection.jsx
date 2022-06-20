@@ -94,9 +94,9 @@ const ArticleSection = ({ section }) => {
     `,
   };
 
-  const trailingActions = (component) => (
+  const trailingActions = (article) => (
     <TrailingActions>
-      <SwipeAction onClick={() => console.log(component)}>
+      <SwipeAction onClick={() => console.log(article)}>
         <div css={styles.swipe}>
           <GrInbox />
         </div>
@@ -126,14 +126,7 @@ const ArticleSection = ({ section }) => {
             articles.map((article, index) => {
               return (
                 <SwipeableListItem
-                  trailingActions={trailingActions(
-                    <Article
-                      imageSource={article.multimedia[0].url}
-                      headline={article.title}
-                      abstract={article.abstract}
-                      key={index}
-                    />
-                  )}
+                  trailingActions={trailingActions(article)}
                   key={index}
                 >
                   <Article
