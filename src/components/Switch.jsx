@@ -10,7 +10,7 @@ const Switch = ({ value, onChange }) => {
     toggleInput: css`
       display: none;
       &:checked ~ div {
-        background: #009578;
+        background: #87bcbf;
       }
       &:checked ~ div::after {
         transform: translateX(25px);
