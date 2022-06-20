@@ -18,11 +18,11 @@ const Inbox = () => {
 
     const uniqueSections = [
       ...new Set(topStories.map((story) => story.section)),
-    ].slice(0, 2);
+    ].slice(2, 4);
 
     setSections(uniqueSections);
 
-    if (!settings.sections) {
+    if (settings.sections === null) {
       setSettings({
         ...settings,
         sections: uniqueSections.reduce((acc, section) => {
