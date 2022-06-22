@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { BsSearch } from "react-icons/bs";
 import { SectionsContext, SettingsContext } from "../context/Contexts";
 import useTopStories from "../hooks/useTopStories";

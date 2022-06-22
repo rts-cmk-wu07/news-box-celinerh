@@ -19,8 +19,6 @@ const Archive = () => {
     setArchive,
   } = useContext(ArchiveContext);
 
-  const { sections, setSections } = useContext(SectionsContext);
-
   const styles = {
     swipe: css`
       background-color: #87bcbf;
@@ -56,18 +54,17 @@ const Archive = () => {
   return (
     <div>
       <SwipeableList>
-        {articles.map((article, index) => {
+        {articles.map((article) => {
           return (
             <SwipeableListItem
+              key={article.short_url}
               trailingActions={trailingActions(article.short_url)}
-              key={index}
             >
               <Article
                 articleLink={article.url}
                 imageSource={article.multimedia[0].url}
                 headline={article.title}
                 abstract={article.abstract}
-                key={index}
               />
             </SwipeableListItem>
           );
