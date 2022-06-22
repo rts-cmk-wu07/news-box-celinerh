@@ -8,8 +8,6 @@ import ArticleSection from "../components/ArticleSection";
 
 const Inbox = () => {
   const { topStories } = useTopStories("home");
-  //const [sections, setSections] = useState([]);
-
   const { sections, setSections } = useContext(SectionsContext);
   const { settings, setSettings } = useContext(SettingsContext);
 
