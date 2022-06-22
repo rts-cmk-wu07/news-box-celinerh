@@ -2,13 +2,15 @@
 import { css } from "@emotion/react";
 import { useContext, useEffect, useState } from "react";
 import { BsSearch } from "react-icons/bs";
-import { SettingsContext } from "../context/Contexts";
+import { SectionsContext, SettingsContext } from "../context/Contexts";
 import useTopStories from "../hooks/useTopStories";
 import ArticleSection from "../components/ArticleSection";
 
 const Inbox = () => {
   const { topStories } = useTopStories("home");
-  const [sections, setSections] = useState([]);
+  //const [sections, setSections] = useState([]);
+
+  const { sections, setSections } = useContext(SectionsContext);
   const { settings, setSettings } = useContext(SettingsContext);
 
   useEffect(() => {
