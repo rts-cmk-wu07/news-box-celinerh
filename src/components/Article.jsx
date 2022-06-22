@@ -1,12 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 
-const Article = ({ imageSource, headline, abstract }) => {
+const Article = ({ articleLink, imageSource, headline, abstract }) => {
   const styles = {
     component: css`
+      padding: 10px;
+      text-decoration: none;
       display: flex;
       gap: 20px;
-      padding: 10px;
     `,
     image: css`
       display: block;
@@ -18,15 +19,17 @@ const Article = ({ imageSource, headline, abstract }) => {
     content: css`
       & h3 {
         font-size: 0.9rem;
+        color: #000;
       }
       & p {
         font-size: 0.6rem;
+        color: #9cb0be;
       }
     `,
   };
 
   return (
-    <div css={styles.component}>
+    <a css={styles.component} href={articleLink}>
       <img
         css={styles.image}
         src={
@@ -41,7 +44,7 @@ const Article = ({ imageSource, headline, abstract }) => {
         <h3>{headline}</h3>
         <p>{abstract}</p>
       </div>
-    </div>
+    </a>
   );
 };
 
