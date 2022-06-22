@@ -13,10 +13,12 @@ import {
 } from "react-swipeable-list";
 import "react-swipeable-list/dist/styles.css";
 import { GrInbox } from "react-icons/gr";
-import { IconContext } from "react-icons/lib";
+import { ArchiveContext } from "../context/Contexts";
+import { useContext } from "react";
 
 const ArticleSection = ({ section }) => {
   const { articles, error, isPending } = useArticles(section, 5);
+  const { archive, setArchive } = useContext(ArchiveContext);
 
   const handleToggle = (e) => {
     const header = e.target.closest(".categoryHeader");
@@ -87,16 +89,16 @@ const ArticleSection = ({ section }) => {
       font-size: 1.5rem;
       font-weight: 500;
       user-select: none;
-
-      & svg {
-        color: red;
-      }
     `,
   };
 
   const trailingActions = (article) => (
     <TrailingActions>
-      <SwipeAction onClick={() => console.log(article)}>
+      <SwipeAction
+        onClick={() => {
+          setArchive({ ...archive, articles: [...archive.articles, article] });
+        }}
+      >
         <div css={styles.swipe}>
           <GrInbox />
         </div>
@@ -130,6 +132,7 @@ const ArticleSection = ({ section }) => {
                   key={index}
                 >
                   <Article
+                    articleLink={article.url}
                     imageSource={article.multimedia[0].url}
                     headline={article.title}
                     abstract={article.abstract}

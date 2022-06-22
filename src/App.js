@@ -10,7 +10,7 @@ import {
   SettingsContext,
 } from "./context/Contexts";
 import { Outlet } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function App() {
   const [sections, setSections] = useState([]);
@@ -23,7 +23,29 @@ function App() {
     articles: [],
   });
 
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState();
+
+  /* dark mode*/
+  useEffect(() => {
+    setDarkMode(JSON.parse(localStorage.getItem("dark-mode")));
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("dark-mode", JSON.stringify(darkMode));
+  }, [darkMode]);
+
+  /* archive */
+  useEffect(() => {
+    setArchive(
+      localStorage.getItem("archive")
+        ? JSON.parse(localStorage.getItem("archive"))
+        : { articles: [] }
+    );
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("archive", JSON.stringify(archive));
+  }, [archive]);
 
   const styles = {
     app: css`
