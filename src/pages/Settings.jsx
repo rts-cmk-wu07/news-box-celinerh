@@ -29,6 +29,7 @@ const Settings = () => {
   const styles = {
     page: css`
       background-color: #eceff0;
+      height: 100vh;
 
       & h2 {
         color: #87bcbf;
@@ -55,6 +56,7 @@ const Settings = () => {
       background-color: #fff;
       margin-inline: 20px;
       border-radius: 15px;
+      -height: 100%;
     `,
     sectionSetting: css`
       text-transform: uppercase;
@@ -87,7 +89,9 @@ const Settings = () => {
   return (
     <div css={styles.page}>
       <h2>
-        Manage <br /> <span>Categories</span>
+        Manage
+        <br />
+        <span>Categories</span>
       </h2>
       <div css={styles.container}>
         {sections.map(({ section, enabled }) => (
