@@ -49,9 +49,27 @@ function App() {
 
   const styles = {
     app: css`
+      height: 100vh;
+
       &.dark-mode,
       &.dark-mode > div {
         background-color: #7a7a7a;
+      }
+
+      &.dark-mode h1,
+      &.dark-mode h2,
+      &.dark-mode h2 span,
+      &.dark-mode h3,
+      &.dark-mode svg {
+        color: #fff;
+      }
+
+      &.dark-mode p {
+        color: #e2e8f0;
+      }
+
+      &.dark-mode svg path {
+        stroke: #fff;
       }
     `,
   };
