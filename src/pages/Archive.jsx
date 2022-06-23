@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 
 import { useContext } from "react";
 import Article from "../components/Article";
-import { ArchiveContext, SectionsContext } from "../context/Contexts";
+import { ArchiveContext } from "../context/Contexts";
 import {
   TrailingActions,
   SwipeAction,
@@ -21,14 +21,14 @@ const Archive = () => {
 
   const styles = {
     swipe: css`
-      background-color: #87bcbf;
-      -height: 100%;
+      background-color: #ef4444;
       display: flex;
       align-items: center;
       padding: 8px;
       font-size: 1.5rem;
       font-weight: 500;
       user-select: none;
+      color: #fff;
     `,
   };
 

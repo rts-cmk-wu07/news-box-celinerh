@@ -54,8 +54,8 @@ const Inbox = () => {
         }
       }
 
-      & svg {
-        color: #6e8ca0;
+      & svg path {
+        stroke: #fff;
       }
     `,
   };
